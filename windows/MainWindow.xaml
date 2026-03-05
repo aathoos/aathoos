@@ -2,83 +2,148 @@
   x:Class="aathoos.MainWindow"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  Title="aathoos" Height="700" Width="1100"
-  Background="#1c1a27"
-  WindowStartupLocation="CenterScreen">
-
-  <Window.Resources>
-    <Style x:Key="NavItemStyle" TargetType="ListBoxItem">
-      <Setter Property="Background" Value="Transparent" />
-      <Setter Property="Foreground" Value="#B0dbdcd7" />
-      <Setter Property="Padding" Value="20,11" />
-      <Setter Property="FontSize" Value="14" />
-      <Setter Property="Cursor" Value="Hand" />
-      <Setter Property="BorderThickness" Value="0" />
-      <Setter Property="Template">
-        <Setter.Value>
-          <ControlTemplate TargetType="ListBoxItem">
-            <Border x:Name="Root"
-                    Background="{TemplateBinding Background}"
-                    Padding="{TemplateBinding Padding}"
-                    Margin="8,2,8,2"
-                    CornerRadius="6">
-              <ContentPresenter />
-            </Border>
-            <ControlTemplate.Triggers>
-              <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="Root" Property="Background" Value="#18dbdcd7" />
-                <Setter Property="Foreground" Value="#dbdcd7" />
-              </Trigger>
-              <Trigger Property="IsSelected" Value="True">
-                <Setter TargetName="Root" Property="Background" Value="#22b8235a" />
-                <Setter Property="Foreground" Value="#dbdcd7" />
-              </Trigger>
-            </ControlTemplate.Triggers>
-          </ControlTemplate>
-        </Setter.Value>
-      </Setter>
-    </Style>
-  </Window.Resources>
+  Title="aathoos" Height="740" Width="1160"
+  MinHeight="600" MinWidth="900"
+  Background="{StaticResource AppBackgroundBrush}"
+  WindowStartupLocation="CenterScreen"
+  UseLayoutRounding="True">
 
   <Grid>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="220" />
-      <ColumnDefinition Width="1" />
-      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="240"/>
+      <ColumnDefinition Width="1"/>
+      <ColumnDefinition Width="*"/>
     </Grid.ColumnDefinitions>
 
-    <!-- Sidebar -->
-    <Grid Grid.Column="0" Background="#23203a">
+    <!-- ── Sidebar ──────────────────────────────────────────────────── -->
+    <Grid Grid.Column="0" Background="{StaticResource AppSurfaceBrush}">
       <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
 
       <!-- Branding -->
-      <StackPanel Grid.Row="0" Margin="20,28,20,20">
-        <TextBlock Text="aathoos" FontSize="20" FontWeight="Bold" Foreground="#dbdcd7" />
-        <TextBlock Text="Student OS" FontSize="12" Foreground="#80dbdcd7" Margin="0,2,0,0" />
-      </StackPanel>
+      <Border Grid.Row="0" Padding="20,26,20,16">
+        <StackPanel Orientation="Horizontal">
+          <Border Width="34" Height="34" CornerRadius="9"
+                  Background="{StaticResource AppAccentBrush}"
+                  Margin="0,0,11,0">
+            <TextBlock Text="A" FontSize="17" FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+          </Border>
+          <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="aathoos" FontSize="16" FontWeight="Bold"
+                       Foreground="{StaticResource AppForegroundBrush}"/>
+            <TextBlock Text="Student OS" FontSize="11"
+                       Foreground="{StaticResource AppMutedBrush}"
+                       Margin="0,1,0,0"/>
+          </StackPanel>
+        </StackPanel>
+      </Border>
 
-      <!-- Nav list -->
-      <ListBox Grid.Row="1"
-               x:Name="NavList"
-               Background="Transparent"
-               BorderThickness="0"
+      <!-- Divider under branding -->
+      <Border Grid.Row="0" VerticalAlignment="Bottom" Height="1"
+              Background="{StaticResource AppBorderBrush}" Margin="16,0,16,0"/>
+
+      <!-- Nav -->
+      <ListBox Grid.Row="1" x:Name="NavList"
+               Background="Transparent" BorderThickness="0"
+               Padding="8,12,8,8"
                SelectionChanged="NavList_SelectionChanged">
-        <ListBoxItem Tag="Dashboard"    Style="{StaticResource NavItemStyle}"><TextBlock Text="Dashboard" /></ListBoxItem>
-        <ListBoxItem Tag="Tasks"        Style="{StaticResource NavItemStyle}"><TextBlock Text="Tasks" /></ListBoxItem>
-        <ListBoxItem Tag="Notes"        Style="{StaticResource NavItemStyle}"><TextBlock Text="Notes" /></ListBoxItem>
-        <ListBoxItem Tag="StudyPlanner" Style="{StaticResource NavItemStyle}"><TextBlock Text="Study Planner" /></ListBoxItem>
-        <ListBoxItem Tag="Goals"        Style="{StaticResource NavItemStyle}"><TextBlock Text="Goals" /></ListBoxItem>
-        <ListBoxItem Tag="FocusMode"    Style="{StaticResource NavItemStyle}"><TextBlock Text="Focus Mode" /></ListBoxItem>
+        <ListBox.ItemContainerStyle>
+          <Style TargetType="ListBoxItem">
+            <Setter Property="Foreground"   Value="{StaticResource AppMutedBrush}"/>
+            <Setter Property="Padding"      Value="0"/>
+            <Setter Property="Margin"       Value="0,1,0,1"/>
+            <Setter Property="FontSize"     Value="13.5"/>
+            <Setter Property="Template">
+              <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                  <Border x:Name="Root"
+                          BorderThickness="3,0,0,0"
+                          BorderBrush="Transparent"
+                          Background="Transparent"
+                          CornerRadius="0,8,8,0"
+                          Padding="14,10">
+                    <ContentPresenter/>
+                  </Border>
+                  <ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                      <Setter TargetName="Root" Property="Background" Value="#12e2e3de"/>
+                      <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                      <Setter TargetName="Root" Property="BorderBrush"
+                              Value="{StaticResource AppAccentBrush}"/>
+                      <Setter TargetName="Root" Property="Background" Value="#1fc4264d"/>
+                      <Setter Property="Foreground" Value="{StaticResource AppForegroundBrush}"/>
+                    </Trigger>
+                  </ControlTemplate.Triggers>
+                </ControlTemplate>
+              </Setter.Value>
+            </Setter>
+          </Style>
+        </ListBox.ItemContainerStyle>
+
+        <ListBoxItem Tag="Dashboard">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="&#xE80F;" FontFamily="Segoe MDL2 Assets" FontSize="14"
+                       VerticalAlignment="Center" Width="20" TextAlignment="Center"/>
+            <TextBlock Text="Dashboard" FontSize="13.5" Margin="12,0,0,0" VerticalAlignment="Center"/>
+          </StackPanel>
+        </ListBoxItem>
+        <ListBoxItem Tag="Tasks">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="&#xE73E;" FontFamily="Segoe MDL2 Assets" FontSize="14"
+                       VerticalAlignment="Center" Width="20" TextAlignment="Center"/>
+            <TextBlock Text="Tasks" FontSize="13.5" Margin="12,0,0,0" VerticalAlignment="Center"/>
+          </StackPanel>
+        </ListBoxItem>
+        <ListBoxItem Tag="Notes">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="&#xE70B;" FontFamily="Segoe MDL2 Assets" FontSize="14"
+                       VerticalAlignment="Center" Width="20" TextAlignment="Center"/>
+            <TextBlock Text="Notes" FontSize="13.5" Margin="12,0,0,0" VerticalAlignment="Center"/>
+          </StackPanel>
+        </ListBoxItem>
+        <ListBoxItem Tag="StudyPlanner">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="&#xE787;" FontFamily="Segoe MDL2 Assets" FontSize="14"
+                       VerticalAlignment="Center" Width="20" TextAlignment="Center"/>
+            <TextBlock Text="Study Planner" FontSize="13.5" Margin="12,0,0,0" VerticalAlignment="Center"/>
+          </StackPanel>
+        </ListBoxItem>
+        <ListBoxItem Tag="Goals">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="&#xE879;" FontFamily="Segoe MDL2 Assets" FontSize="14"
+                       VerticalAlignment="Center" Width="20" TextAlignment="Center"/>
+            <TextBlock Text="Goals" FontSize="13.5" Margin="12,0,0,0" VerticalAlignment="Center"/>
+          </StackPanel>
+        </ListBoxItem>
+        <ListBoxItem Tag="FocusMode">
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="&#xE916;" FontFamily="Segoe MDL2 Assets" FontSize="14"
+                       VerticalAlignment="Center" Width="20" TextAlignment="Center"/>
+            <TextBlock Text="Focus Mode" FontSize="13.5" Margin="12,0,0,0" VerticalAlignment="Center"/>
+          </StackPanel>
+        </ListBoxItem>
       </ListBox>
+
+      <!-- Footer -->
+      <Border Grid.Row="2" Padding="22,12,22,20">
+        <TextBlock Text="v1.0" FontSize="11"
+                   Foreground="{StaticResource AppMutedBrush}"/>
+      </Border>
     </Grid>
 
     <!-- Sidebar divider -->
-    <Border Grid.Column="1" Background="#14dbdcd7" />
+    <Border Grid.Column="1" Background="{StaticResource AppBorderBrush}"/>
 
     <!-- Main content -->
-    <ContentControl Grid.Column="2" x:Name="MainContent" Background="#1c1a27" />
+    <ContentControl Grid.Column="2" x:Name="MainContent"
+                    Background="{StaticResource AppBackgroundBrush}"/>
   </Grid>
 </Window>

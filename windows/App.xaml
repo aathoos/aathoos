@@ -5,12 +5,182 @@
   StartupUri="MainWindow.xaml">
 
   <Application.Resources>
-    <!-- Brand palette -->
-    <SolidColorBrush x:Key="AppBackgroundBrush"  Color="#1c1a27" />
-    <SolidColorBrush x:Key="AppSurfaceBrush"      Color="#23203a" />
-    <SolidColorBrush x:Key="AppForegroundBrush"   Color="#dbdcd7" />
-    <SolidColorBrush x:Key="AppMutedBrush"        Color="#80dbdcd7" />
-    <SolidColorBrush x:Key="AppAccentBrush"       Color="#b8235a" />
-    <SolidColorBrush x:Key="AppBorderBrush"       Color="#14dbdcd7" />
+
+    <!-- ── Palette ─────────────────────────────────────────────────────── -->
+    <SolidColorBrush x:Key="AppBackgroundBrush"   Color="#13111f"/>
+    <SolidColorBrush x:Key="AppSurfaceBrush"      Color="#1d1a30"/>
+    <SolidColorBrush x:Key="AppSurface2Brush"     Color="#262240"/>
+    <SolidColorBrush x:Key="AppForegroundBrush"   Color="#e2e3de"/>
+    <SolidColorBrush x:Key="AppMutedBrush"        Color="#8485a0"/>
+    <SolidColorBrush x:Key="AppAccentBrush"       Color="#c4264d"/>
+    <SolidColorBrush x:Key="AppAccentGlowBrush"   Color="#33c4264d"/>
+    <SolidColorBrush x:Key="AppBorderBrush"       Color="#2e2a48"/>
+    <SolidColorBrush x:Key="AppSuccessBrush"      Color="#22c55e"/>
+    <SolidColorBrush x:Key="AppWarningBrush"      Color="#f59e0b"/>
+    <SolidColorBrush x:Key="AppErrorBrush"        Color="#ef4444"/>
+    <SolidColorBrush x:Key="AppInfoBrush"         Color="#60a5fa"/>
+
+    <!-- ── Button ─────────────────────────────────────────────────────── -->
+    <Style TargetType="Button">
+      <Setter Property="Background"     Value="{StaticResource AppSurface2Brush}"/>
+      <Setter Property="Foreground"     Value="{StaticResource AppForegroundBrush}"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding"        Value="16,9"/>
+      <Setter Property="FontSize"       Value="13.5"/>
+      <Setter Property="FontFamily"     Value="Segoe UI"/>
+      <Setter Property="Cursor"         Value="Hand"/>
+      <Setter Property="SnapsToDevicePixels" Value="True"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="Root"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="8"
+                    Padding="{TemplateBinding Padding}">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="Root" Property="Opacity" Value="0.80"/>
+              </Trigger>
+              <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="Root" Property="Opacity" Value="0.60"/>
+              </Trigger>
+              <Trigger Property="IsEnabled" Value="False">
+                <Setter TargetName="Root" Property="Opacity" Value="0.35"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="{StaticResource AppAccentBrush}"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="{StaticResource AppErrorBrush}"/>
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style x:Key="GhostButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background"        Value="Transparent"/>
+      <Setter Property="BorderThickness"   Value="1"/>
+      <Setter Property="BorderBrush"       Value="{StaticResource AppBorderBrush}"/>
+    </Style>
+
+    <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Padding"    Value="5"/>
+      <Setter Property="Width"      Value="28"/>
+      <Setter Property="Height"     Value="28"/>
+    </Style>
+
+    <!-- ── TextBox ────────────────────────────────────────────────────── -->
+    <Style TargetType="TextBox">
+      <Setter Property="Background"        Value="{StaticResource AppSurfaceBrush}"/>
+      <Setter Property="Foreground"        Value="{StaticResource AppForegroundBrush}"/>
+      <Setter Property="CaretBrush"        Value="{StaticResource AppForegroundBrush}"/>
+      <Setter Property="SelectionBrush"    Value="{StaticResource AppAccentBrush}"/>
+      <Setter Property="BorderBrush"       Value="{StaticResource AppBorderBrush}"/>
+      <Setter Property="BorderThickness"   Value="1"/>
+      <Setter Property="Padding"           Value="12,9"/>
+      <Setter Property="FontSize"          Value="13.5"/>
+      <Setter Property="FontFamily"        Value="Segoe UI"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Setter Property="SnapsToDevicePixels" Value="True"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="TextBox">
+            <Border x:Name="Root"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="8"
+                    Padding="{TemplateBinding Padding}">
+              <ScrollViewer x:Name="PART_ContentHost"
+                            Focusable="False"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsFocused" Value="True">
+                <Setter TargetName="Root" Property="BorderBrush"
+                        Value="{StaticResource AppAccentBrush}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="MultilineTextBox" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+      <Setter Property="AcceptsReturn"                  Value="True"/>
+      <Setter Property="TextWrapping"                   Value="Wrap"/>
+      <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+      <Setter Property="VerticalContentAlignment"       Value="Top"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="TextBox">
+            <Border x:Name="Root"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="8"
+                    Padding="{TemplateBinding Padding}">
+              <ScrollViewer x:Name="PART_ContentHost"
+                            Focusable="False"
+                            VerticalScrollBarVisibility="Auto"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsFocused" Value="True">
+                <Setter TargetName="Root" Property="BorderBrush"
+                        Value="{StaticResource AppAccentBrush}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!-- ── ProgressBar ────────────────────────────────────────────────── -->
+    <Style TargetType="ProgressBar">
+      <Setter Property="Height"          Value="6"/>
+      <Setter Property="Background"      Value="{StaticResource AppBorderBrush}"/>
+      <Setter Property="Foreground"      Value="{StaticResource AppAccentBrush}"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ProgressBar">
+            <Grid>
+              <Border x:Name="PART_Track" CornerRadius="3"
+                      Background="{TemplateBinding Background}"/>
+              <Border x:Name="PART_Indicator" CornerRadius="3"
+                      Background="{TemplateBinding Foreground}"
+                      HorizontalAlignment="Left"/>
+            </Grid>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <!-- ── ComboBox (minimal dark) ────────────────────────────────────── -->
+    <Style TargetType="ComboBox">
+      <Setter Property="Background"   Value="{StaticResource AppSurfaceBrush}"/>
+      <Setter Property="Foreground"   Value="{StaticResource AppForegroundBrush}"/>
+      <Setter Property="BorderBrush"  Value="{StaticResource AppBorderBrush}"/>
+      <Setter Property="Padding"      Value="10,8"/>
+      <Setter Property="FontSize"     Value="13.5"/>
+    </Style>
+    <Style TargetType="ComboBoxItem">
+      <Setter Property="Background"   Value="{StaticResource AppSurfaceBrush}"/>
+      <Setter Property="Foreground"   Value="{StaticResource AppForegroundBrush}"/>
+      <Setter Property="Padding"      Value="10,6"/>
+    </Style>
+
   </Application.Resources>
 </Application>

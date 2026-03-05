@@ -1,37 +1,32 @@
 <Window
-  x:Class="aathoos.Views.AddTaskDialog"
+  x:Class="aathoos.Views.AddNoteDialog"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  Title="New Task"
-  Width="400" SizeToContent="Height"
+  Title="New Note"
+  Width="420" SizeToContent="Height"
   Background="{StaticResource AppSurfaceBrush}"
   WindowStartupLocation="CenterOwner"
   ResizeMode="NoResize"
   UseLayoutRounding="True">
 
   <StackPanel Margin="24,22,24,24">
-    <TextBlock Text="New Task" FontSize="19" FontWeight="Bold"
+    <TextBlock Text="New Note" FontSize="19" FontWeight="Bold"
                Foreground="{StaticResource AppForegroundBrush}" Margin="0,0,0,20"/>
 
     <TextBlock Text="Title" FontSize="12" Foreground="{StaticResource AppMutedBrush}" Margin="0,0,0,5"/>
     <TextBox x:Name="TitleBox" Margin="0,0,0,14"/>
 
-    <TextBlock Text="Notes (optional)" FontSize="12"
+    <TextBlock Text="Subject (optional)" FontSize="12"
                Foreground="{StaticResource AppMutedBrush}" Margin="0,0,0,5"/>
-    <TextBox x:Name="NotesBox" Margin="0,0,0,14"/>
+    <TextBox x:Name="SubjectBox" Margin="0,0,0,14"/>
 
-    <TextBlock Text="Priority" FontSize="12"
-               Foreground="{StaticResource AppMutedBrush}" Margin="0,0,0,5"/>
-    <ComboBox x:Name="PriorityBox" SelectedIndex="1"
-              HorizontalAlignment="Stretch" Margin="0,0,0,22">
-      <ComboBoxItem>Low</ComboBoxItem>
-      <ComboBoxItem>Medium</ComboBoxItem>
-      <ComboBoxItem>High</ComboBoxItem>
-    </ComboBox>
+    <TextBlock Text="Body" FontSize="12" Foreground="{StaticResource AppMutedBrush}" Margin="0,0,0,5"/>
+    <TextBox x:Name="BodyBox" Style="{StaticResource MultilineTextBox}"
+             Height="120" Margin="0,0,0,22"/>
 
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
       <Button Content="Cancel" Click="OnCancel" Padding="16,8" Margin="0,0,8,0"/>
-      <Button Content="Add Task" Click="OnAdd"
+      <Button Content="Add Note" Click="OnAdd"
               Style="{StaticResource AccentButton}" Padding="16,8"/>
     </StackPanel>
   </StackPanel>
